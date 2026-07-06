@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>켈스의 서 오디오 가이드 (한국어)</title>
+<style>
+  body { font-family: -apple-system, 'Malgun Gothic', sans-serif; max-width: 700px; margin: 0 auto; padding: 16px; background:#faf6ef; }
+  h1 { font-size: 1.4em; text-align:center; color:#2b2b2b; }
+  .track { background:#fff; border-radius:12px; padding:14px 18px; margin-bottom:14px; box-shadow:0 1px 4px rgba(0,0,0,0.1); }
+  .track h2 { font-size:1.05em; margin:0 0 6px 0; color:#7a2222; }
+  .track .num { color:#999; font-size:0.85em; }
+  audio { width:100%; margin-top:8px; }
+  details summary { cursor:pointer; color:#555; font-size:0.9em; margin-top:6px; }
+  p.text { font-size:0.95em; line-height:1.5; color:#333; }
+</style>
+</head>
+<body>
+<h1>켈스의 서 오디오 가이드 (한국어 번역)</h1>
+<div id="tracks"></div>
+<script>
+fetch('tracks.json').then(r => r.json()).then(data => {
+  const container = document.getElementById('tracks');
+  data.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'track';
+    div.innerHTML = `
+      <span class="num">Track ${t.track}</span>
+      <h2>${t.title}</h2>
+      <audio controls src="${t.audio_file}"></audio>
+      <details><summary>텍스트 보기 / Show text</summary><p class="text">${t.text_ko}</p></details>
+    `;
+    container.appendChild(div);
+  });
+});
+</script>
+</body>
+</html>
